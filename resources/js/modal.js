@@ -54,13 +54,3 @@ document.querySelector("#cal-timeEnd").addEventListener("blur", (e) => {
 
     }     
 })
-
-
-document.querySelector("#cal-form").addEventListener("submit", (event) => {
-    event.preventDefault()
-    getForm()
-    event.target.reset()
-})
-
-
-

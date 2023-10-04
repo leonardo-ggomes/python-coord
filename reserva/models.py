@@ -42,8 +42,8 @@ class Evento(models.Model):
     
     inicio = models.TimeField()
     fim = models.TimeField()
-    docente = models.ForeignKey(Docente, on_delete=models.DO_NOTHING)
-    turma = models.ForeignKey(Turma, on_delete=models.DO_NOTHING)
+    docente = models.ForeignKey(Docente, on_delete=models.CASCADE)
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE)
     etiqueta = models.CharField(max_length=50, choices=EIQUETA, default='Verde')
-    ambiente = models.ForeignKey(Ambiente, on_delete=models.DO_NOTHING)
+    ambiente = models.ForeignKey(Ambiente, on_delete=models.CASCADE)
     diasemana = models.CharField(max_length=20, choices=SEMANA, default='Segunda')

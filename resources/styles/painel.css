@@ -199,7 +199,7 @@ input[type="time"]{
     margin: 1px;
     background-color: white;
     display: flex;
-    width: -webkit-fill-available;
+    width: 100%;
     border-radius: 3px;
     padding: 3px;
 }

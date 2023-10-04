@@ -1,13 +1,32 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from .models import Evento
 from .forms import EventoForm
+import json
 
 def eventos(request):
     
+    eventos = Evento.objects.select_related('turma','docente','ambiente').all()
+    
+    data = []
+    
     forms = EventoForm()
     
+    for item in eventos:
+        data.append({
+            'inicio' : str(item.inicio),
+            'fim' : str(item.fim),
+            'docente'  : item.docente.nome,
+            'turma'  : item.turma.nome,
+            'etiqueta'  : item.etiqueta,
+            'ambiente'  : item.ambiente.nome,
+            'diasemana' : item.diasemana,
+            'codAmbiente': item.ambiente.pk
+        })   
+       
     context = {       
-        'form': forms
+        'form': forms,
+        'eventos':  json.dumps(data)
     }
     
     if request.method == 'POST':
@@ -16,10 +35,10 @@ def eventos(request):
             
         if forms.is_valid():
             forms.save()
-            HttpResponseRedirect("painel")
+            return HttpResponseRedirect("/painel/")
             
         else:
             forms = EventoForm()
     
-    return HttpResponse(render(request, "painel.html", context))
+    return render(request, "painel.html", context)
 

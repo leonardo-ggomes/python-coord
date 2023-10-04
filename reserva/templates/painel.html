@@ -90,9 +90,84 @@
               </div>  
             </form>         
         </div>
-    </div>
-    
+    </div>   
+ 
     <script src={%static 'js/events.js'%}></script>
     <script src={%static 'js/modal.js'%}></script>
+
+    <script>   
+      
+        let data = JSON.parse('{{ eventos|escapejs }}')
+        
+        data.forEach((dt, index) => {
+    
+            let event = {
+                startHourUnformat: dt.inicio,
+                endHourUnformat: dt.fim,
+                startHourPad: String(dt.inicio).split(':')[0].padStart(2,"0"),
+                startMinutesPad: String(dt.inicio).split(':')[1].padStart(2,"0"),
+                endHourPad: String(dt.fim).split(':')[0].padStart(2,"0"),
+                endMinutesPad: String(dt.fim).split(':')[1].padStart(2,"0"),
+                startHours: Number(String(dt.inicio).split(':')[0]),
+                startMinutes: Number(String(dt.inicio).split(':')[1]),
+                endHours: Number(String(dt.fim).split(':')[0]),
+                endMinutes: Number(String(dt.fim).split(':')[1]),
+                docente: dt.docente,
+                turma: dt.turma,
+                etiqueta: dt.etiqueta,
+                ambiente: dt.ambiente,
+                diaSemana: dt.diasemana,
+                codAmbiente: dt.codAmbiente              
+            }
+
+            let colSemana = document.getElementById(`${event.diaSemana}`)
+            
+            if(colSemana){
+                let colAmbiente = document.getElementById(`cal-nc${event.diaSemana}-${event.codAmbiente}`)
+                const newEvent = document.createElement("div")
+                newEvent.classList.add("cal-event")
+                newEvent.style.backgroundColor = event.etiqueta
+
+                let startTop = (event.startHours - 7) * 5.88    
+                let startMinTop = event.startMinutes * 0.1
+                startTop += startMinTop
+                newEvent.style.top = startTop+"%" 
+
+                //Calcula a diferenca de horas
+                let horaspx = (event.endHours - event.startHours) * 5.88
+
+                //encontra o percentual dos minutos
+                let minutospx = event.endMinutes * 0.1  
+
+                let hmfinal = horaspx + minutospx
+                hmfinal -= startMinTop
+
+                newEvent.style.height = "calc("+hmfinal+"%)"                   
+
+
+                newEvent.innerHTML = `
+                    <div class="cal-textHour"> ${event.startHourUnformat} - <strong>${event.endHourUnformat}</strong></div>
+                    <div class="tooltip"> <i class='bx bx-group'> </i>${event.turma}
+                        <span class="tooltiptext">${event.docente}</span>
+                    </div>    
+                `
+
+                if(colAmbiente) {         
+                    colAmbiente.appendChild(newEvent)
+                }
+                else{
+                    const newColAmbiente = document.createElement("div") 
+                    newColAmbiente.id = `cal-nc${event.diaSemana}-${event.codAmbiente}`
+                    newColAmbiente.classList.add("cal-colHour")
+
+                    newColAmbiente.appendChild(newEvent)
+                    colSemana.appendChild(newColAmbiente)   
+                }
+            }
+
+        }); 
+    </script>
+    
+  
 </body>
 </html>
