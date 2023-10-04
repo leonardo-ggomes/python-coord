@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+
+    <link rel="stylesheet" href={% static 'styles/painel.css'%}>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="cal-container">
+        <div class="cal-filter">    
+        </div>   
+        <div class="cal-header">
+            <div> </div>
+            <div><i class='bx bx-calendar-week'></i>Segunda</div>
+            <div><i class='bx bx-calendar-week'></i>Terça</div>
+            <div><i class='bx bx-calendar-week'></i>Quarta</div>
+            <div><i class='bx bx-calendar-week'></i>Quinta</div>
+            <div><i class='bx bx-calendar-week'></i>Sexta</div>
+            <div><i class='bx bx-calendar-week'></i>Sábado</div>
+        </div>   
+        <div id="cal-events">            
+        </div>
+    </div>
+
+    <div class="cal-container-modal" data-cal-show="false">
+        <div class="cal-modal">
+            <div class="cal-modal-top">
+                <span class="cal-badge"><i class='bx bx-chevrons-right'></i>Novo Evento</span>
+            </div>
+            <div class="cal-info"></div>  
+            <form id="cal-form" method="POST">
+              {% csrf_token %}    
+              <div class="cal-row">
+
+                  <div class="cal-column">  
+                     {{form.inicio.label_tag}}         
+                     {{form.inicio}}
+                  </div>  
+
+                  <div class="cal-column"> 
+                    {{form.fim.label_tag}}     
+                    {{form.fim}}
+                  </div>  
+
+                  <div class="cal-column">      
+                      <label for="cal-aulas">Aulas (45 min)</label>          
+                      <input type="number" step="any" value="0" min="0" max="10" id="cal-aulas" class="cal-sel-aulas"/>
+                  </div>
+
+              </div>
+                  
+              <div class="cal-row">
+                  <div class="cal-column">           
+                      {{form.docente.label_tag}}        
+                      {{form.docente}}
+                  </div>
+              </div>
+              <div class="cal-row">
+                  <div class="cal-column">   
+                      {{form.diasemana.label_tag}}        
+                      {{form.diasemana}}
+                  </div>
+              </div>
+              <div class="cal-row">
+                  <div class="cal-column">           
+                        {{form.turma.label_tag}}        
+                        {{form.turma}}
+                  </div>
+              </div>
+              <div class="cal-row">
+                  <div class="cal-column">           
+                        {{form.ambiente.label_tag}}        
+                        {{form.ambiente}}
+                  </div>
+              </div>
+              <div class="cal-row">
+                  <div class="cal-column">           
+                    {{form.etiqueta.label_tag}}        
+                    {{form.etiqueta}}
+                  </div>
+              </div>   
+              <div class="cal-row cal-justify-end">
+                  <button type="submit" class="cal-btn" id="cal-alocar"><i class='bx bx-check-circle'></i> Guardar</button>
+              </div>  
+            </form>         
+        </div>
+    </div>
+    
+    <script src={%static 'js/events.js'%}></script>
+    <script src={%static 'js/modal.js'%}></script>
+</body>
+</html>
