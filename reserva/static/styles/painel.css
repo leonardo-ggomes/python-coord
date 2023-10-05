@@ -200,7 +200,7 @@ input[type="time"]{
     margin: 1px;
     background-color: white;
     display: flex;
-    width: -webkit-fill-available;
+    flex-grow: 1;
     border-radius: 3px;
     padding: 3px;
 }

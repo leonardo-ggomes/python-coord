@@ -102,6 +102,7 @@
         data.forEach((dt, index) => {
     
             let event = {
+                codigo : dt.codigo,
                 startHourUnformat: dt.inicio,
                 endHourUnformat: dt.fim,
                 startHourPad: String(dt.inicio).split(':')[0].padStart(2,"0"),
@@ -126,7 +127,29 @@
                 let colAmbiente = document.getElementById(`cal-nc${event.diaSemana}-${event.codAmbiente}`)
                 const newEvent = document.createElement("div")
                 newEvent.classList.add("cal-event")
+                newEvent.id = event.codigo
                 newEvent.style.backgroundColor = event.etiqueta
+
+                newEvent.addEventListener("dblclick", () => {
+                    alert()
+
+                    const csrfToken = getCSRFToken();
+
+                    fetch('/painel?id='+event.codigo, 
+                    {
+                        method:'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrfToken,
+                            'Content-Type': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        alert(response.status)
+                    })
+                    .catch(error => {
+                       console.error(error)
+                    })
+                })
 
                 let startTop = (event.startHours - 7) * 5.88    
                 let startMinTop = event.startMinutes * 0.1
@@ -166,6 +189,19 @@
             }
 
         }); 
+
+
+
+        function getCSRFToken() {
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === "csrftoken") {
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
     </script>
     
   

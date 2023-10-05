@@ -14,6 +14,7 @@ def eventos(request):
     
     for item in eventos:
         data.append({
+            'codigo' : item.pk,  
             'inicio' : str(item.inicio),
             'fim' : str(item.fim),
             'docente'  : item.docente.nome,
@@ -38,7 +39,13 @@ def eventos(request):
             return HttpResponseRedirect("/painel/")
             
         else:
-            forms = EventoForm()
+            forms = EventoForm() 
+    elif  request.method == 'DELETE':  
+        paramId = request.GET.get("id")
+        
+        print(paramId)
+             
+   
     
     return render(request, "painel.html", context)
 
