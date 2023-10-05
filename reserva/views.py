@@ -34,20 +34,32 @@ def eventos(request):
             
         forms = EventoForm(request.POST)
             
-        if forms.is_valid():
-            forms.save()
-            return HttpResponseRedirect("/painel/")
+        if forms.is_valid():     
+                 
+            hasEvento = Evento.objects.filter(               
+                ambiente_id=forms.data['ambiente'],            
+                diasemana=forms.data['diasemana'],
+                inicio__gte=forms.data['inicio'], 
+                fim__lte=forms.data['fim']).count()
+            
+            if hasEvento == 0:
+                forms.save()
+                
+            return HttpResponseRedirect("/painel/")          
+          
             
         else:
             forms = EventoForm() 
     elif  request.method == 'DELETE': 
         
-        paramId = request.GET.get("id")              
-        item = Evento.objects.filter(id=paramId)
-        print(item)
-        item.delete()
+        try:
+            paramId = request.GET.get("id")              
+            item = Evento.objects.filter(id=paramId)            
+            item.delete()
         
-        return HttpResponse(status=200)
+            return HttpResponse(status=200)
+        except:
+            return HttpResponse(status=500)
         
              
    

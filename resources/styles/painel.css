@@ -42,6 +42,7 @@ body{
     flex-direction: column;
     height: 100vh;
     padding: 5px;
+    background-color: #f0f0f0;
 }
 
 .cal-filter{
@@ -171,12 +172,12 @@ input[type="time"]{
     border-radius: 4px;
     font-size: 12px;
     color: white;
-    background-color: red;
+    background-color: #417690;
     vertical-align: middle;
 }
 
 .cal-text-red{
-    color: red;
+    color: #417690;
 }
 
 .cal-btn{
@@ -185,9 +186,9 @@ input[type="time"]{
     font-size: 16px;
     height: 31px;
     cursor: pointer;
-    color: red;
+    color: #417690;
     background-color: #ffffff;
-    border: 1px solid red;
+    border: 1px solid #417690;
     padding: 10px;
     border-radius: 4px;
 }
@@ -199,7 +200,7 @@ input[type="time"]{
     margin: 1px;
     background-color: white;
     display: flex;
-    width: -webkit-fill-available;
+    flex-grow: 1;
     border-radius: 3px;
     padding: 3px;
 }
@@ -211,7 +212,7 @@ input[type="time"]{
     border-radius: 3px;
     border: 1px dashed white;
     padding: 4px;
-    border-left: 2px solid blue;
+    border-left: 2px solid #32514e;
 }
 
 .cal-colHour{
@@ -227,17 +228,20 @@ input[type="time"]{
 }
 
 #cal-hours div{
-    border-radius: 3px;
+    border-bottom: 1px solid #417690;
+    border-radius: 2px;
     padding: 4px;
     flex-grow: 1;
     margin: 1px;
-    color: white;
+    color: #3a3b3c;
     background-color: transparent;
     cursor: pointer;
     width: 50px;
-    font-weight: 500;
+    font-weight: 900;
+    font-size: 12px;
     display: flex;
     align-items: start;
+    justify-content: end;
 }
 
 .dropdown {
@@ -322,6 +326,55 @@ z-index: 1;
     text-align: center;
   }
 
+  .cal-header div:nth-child(2){
+    margin-left: 5px;
+  }
+
   .cal-header div:first-child{
     width: 50px;
+  }
+
+
+  /**toast**/
+
+  #snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+  }
+  
+  #snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  @-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
   }

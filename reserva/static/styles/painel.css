@@ -172,12 +172,12 @@ input[type="time"]{
     border-radius: 4px;
     font-size: 12px;
     color: white;
-    background-color: red;
+    background-color: #417690;
     vertical-align: middle;
 }
 
 .cal-text-red{
-    color: red;
+    color: #417690;
 }
 
 .cal-btn{
@@ -186,9 +186,9 @@ input[type="time"]{
     font-size: 16px;
     height: 31px;
     cursor: pointer;
-    color: red;
+    color: #417690;
     background-color: #ffffff;
-    border: 1px solid red;
+    border: 1px solid #417690;
     padding: 10px;
     border-radius: 4px;
 }
@@ -229,7 +229,7 @@ input[type="time"]{
 
 #cal-hours div{
     border-bottom: 1px solid #417690;
-    border-radius: 1px;
+    border-radius: 2px;
     padding: 4px;
     flex-grow: 1;
     margin: 1px;
@@ -279,7 +279,7 @@ z-index: 1;
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: 150px;
     background-color: black;
     color: #fff;
     text-align: center;
