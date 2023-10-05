@@ -42,6 +42,7 @@ body{
     flex-direction: column;
     height: 100vh;
     padding: 5px;
+    background-color: #f0f0f0;
 }
 
 .cal-filter{
@@ -211,7 +212,7 @@ input[type="time"]{
     border-radius: 3px;
     border: 1px dashed white;
     padding: 4px;
-    border-left: 2px solid blue;
+    border-left: 2px solid #32514e;
 }
 
 .cal-colHour{
@@ -227,17 +228,20 @@ input[type="time"]{
 }
 
 #cal-hours div{
-    border-radius: 3px;
+    border-bottom: 1px solid #417690;
+    border-radius: 1px;
     padding: 4px;
     flex-grow: 1;
     margin: 1px;
-    color: white;
-    background-color: #417690;
+    color: #3a3b3c;
+    background-color: transparent;
     cursor: pointer;
     width: 50px;
-    font-weight: 700;
+    font-weight: 900;
+    font-size: 12px;
     display: flex;
-    align-items: center;
+    align-items: start;
+    justify-content: end;
 }
 
 .dropdown {
@@ -315,10 +319,15 @@ z-index: 1;
   .cal-header div:not(:first-child){
     width: 17%;
     padding: 2px;
-    border: 1px solid #417690;
+    border: 1px solid #ffffff;
     border-radius: 3px;
+    background-color: transparent;
     color: #417690;
     text-align: center;
+  }
+
+  .cal-header div:nth-child(2){
+    margin-left: 5px;
   }
 
   .cal-header div:first-child{

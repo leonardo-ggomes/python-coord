@@ -199,7 +199,7 @@ input[type="time"]{
     margin: 1px;
     background-color: white;
     display: flex;
-    width: 100%;
+    width: -webkit-fill-available;
     border-radius: 3px;
     padding: 3px;
 }
@@ -232,12 +232,12 @@ input[type="time"]{
     flex-grow: 1;
     margin: 1px;
     color: white;
-    background-color: #417690;
+    background-color: transparent;
     cursor: pointer;
     width: 50px;
-    font-weight: 700;
+    font-weight: 500;
     display: flex;
-    align-items: center;
+    align-items: start;
 }
 
 .dropdown {
@@ -315,8 +315,9 @@ z-index: 1;
   .cal-header div:not(:first-child){
     width: 17%;
     padding: 2px;
-    border: 1px solid #417690;
+    border: 1px solid #ffffff;
     border-radius: 3px;
+    background-color: transparent;
     color: #417690;
     text-align: center;
   }
