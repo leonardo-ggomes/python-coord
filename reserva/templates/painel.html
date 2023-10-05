@@ -143,12 +143,15 @@
                         }
                     })
                     .then(response => {
-                        if(response.status == 200){
+                        if(response.status == 200){                            
                             location.reload()
+                        }
+                        else{
+                            showToast("Não foi possível deletar","<i class='bx bx-error' ></i>")
                         }
                     })
                     .catch(error => {
-                       console.error(error)
+                        showToast("Falha na comunição com o servidor","<i class='bx bx-error' ></i>")
                     })
                 })
 
@@ -203,6 +206,24 @@
             }
             return null;
         }
+
+
+        function showToast(msg = "Sem mensagem", fontIcon = "") {
+            var body = document.querySelector("body")
+            var toast = document.createElement("div")
+            toast.id = "snackbar"            
+            toast.className = "show";
+            toast.innerText = msg
+            toast.innerHTML = msg+" "+fontIcon
+            body.appendChild(toast)
+
+            setTimeout(function(){                
+                body.removeChild(toast)
+            }, 3000);
+
+          }
+
+          showToast("Atualizado","<i class='bx bx-check-circle'></i>")
     </script>
     
   
