@@ -40,10 +40,15 @@ def eventos(request):
             
         else:
             forms = EventoForm() 
-    elif  request.method == 'DELETE':  
-        paramId = request.GET.get("id")
+    elif  request.method == 'DELETE': 
         
-        print(paramId)
+        paramId = request.GET.get("id")              
+        item = Evento.objects.filter(id=paramId)
+        print(item)
+        item.delete()
+        
+        return HttpResponse(status=200)
+        
              
    
     

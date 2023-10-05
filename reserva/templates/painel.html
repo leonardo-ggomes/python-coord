@@ -130,8 +130,7 @@
                 newEvent.id = event.codigo
                 newEvent.style.backgroundColor = event.etiqueta
 
-                newEvent.addEventListener("dblclick", () => {
-                    alert()
+                newEvent.addEventListener("dblclick", () => {                   
 
                     const csrfToken = getCSRFToken();
 
@@ -144,7 +143,9 @@
                         }
                     })
                     .then(response => {
-                        alert(response.status)
+                        if(response.status == 200){
+                            location.reload()
+                        }
                     })
                     .catch(error => {
                        console.error(error)
