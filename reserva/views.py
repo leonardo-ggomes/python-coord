@@ -34,16 +34,17 @@ def eventos(request):
             
         forms = EventoForm(request.POST)
             
-        if forms.is_valid():     
-                 
-            hasEvento = Evento.objects.filter(               
-                ambiente_id=forms.data['ambiente'],            
-                diasemana=forms.data['diasemana'],
-                inicio__gte=forms.data['inicio'], 
-                fim__lte=forms.data['fim']).count()
+        if forms.is_valid():                      
+      
+            if not Evento.objects.filter(
+                    ambiente_id=forms.data['ambiente'],
+                    diasemana=forms.data['diasemana'],
+                    inicio__lt=forms.data['fim'],
+                    fim__gt=forms.data['inicio']
+                ).exclude(inicio=forms.data['fim']).exists():
+                   forms.save()
             
-            if hasEvento == 0:
-                forms.save()
+         
                 
             return HttpResponseRedirect("/painel/")          
           
