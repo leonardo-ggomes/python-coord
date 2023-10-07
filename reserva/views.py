@@ -4,8 +4,8 @@ from .models import Evento
 from .forms import EventoForm
 import json
 
-def eventos(request):
-    
+def eventos(request):    
+ 
     eventos = Evento.objects.select_related('turma','docente','ambiente').all()
     
     data = []
@@ -27,7 +27,8 @@ def eventos(request):
        
     context = {       
         'form': forms,
-        'eventos':  json.dumps(data)
+        'eventos':  json.dumps(data),
+        'msg':''
     }
     
     if request.method == 'POST':
@@ -41,12 +42,15 @@ def eventos(request):
                     diasemana=forms.data['diasemana'],
                     inicio__lt=forms.data['fim'],
                     fim__gt=forms.data['inicio']
-                ).exclude(inicio=forms.data['fim']).exists():
+                ).exclude(inicio=forms.data['fim']).exists():                   
                    forms.save()
-            
+                   context['msg'] = "Salvo com sucesso!"
+                   eventos = Evento.objects.select_related('turma','docente','ambiente').all()
+            else:
+                context['msg'] = "Já existe reserva neste período"
          
-                
-            return HttpResponseRedirect("/painel/")          
+            #return render(request, "painel.html", context)
+            #return HttpResponseRedirect("/painel/")          
           
             
         else:
@@ -57,9 +61,10 @@ def eventos(request):
             paramId = request.GET.get("id")              
             item = Evento.objects.filter(id=paramId)            
             item.delete()
-        
+            context['msg'] = "Excluído com sucesso!"
             return HttpResponse(status=200)
         except:
+            context['msg'] = "Erro 500!"
             return HttpResponse(status=500)
         
              

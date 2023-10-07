@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href={% static 'styles/painel.css'%}>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src={% static 'js/sweetalert.min.js'%}></script>
 
 </head>
 
@@ -98,6 +99,14 @@
     <script>   
       
         let data = JSON.parse('{{ eventos|escapejs }}')
+        let msg = '{{ msg|escapejs }}'
+        
+        if(msg){
+            showToast(msg,"<i class='bx bx-error' ></i>")
+        }
+        else{
+            showToast("Atualizado","<i class='bx bx-check-circle'></i>")
+        }
         
         data.forEach((dt, index) => {
     
@@ -130,29 +139,43 @@
                 newEvent.id = event.codigo
                 newEvent.style.backgroundColor = event.etiqueta
 
-                newEvent.addEventListener("dblclick", () => {                   
+                newEvent.addEventListener("dblclick", () => {   
 
-                    const csrfToken = getCSRFToken();
+                    swal({
+                    title: "Tem certeza ?",
+                    text: `O evento no ambiente ${event.ambiente} das ${event.startHourUnformat} até ${event.endHourUnformat} será permanentemente excluido!`,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                    if (willDelete) {
+                        const csrfToken = getCSRFToken();
 
-                    fetch('/painel?id='+event.codigo, 
-                    {
-                        method:'DELETE',
-                        headers: {
-                            'X-CSRFToken': csrfToken,
-                            'Content-Type': 'application/json',
-                        }
-                    })
-                    .then(response => {
-                        if(response.status == 200){                            
-                            location.reload()
-                        }
-                        else{
-                            showToast("Não foi possível deletar","<i class='bx bx-error' ></i>")
-                        }
-                    })
-                    .catch(error => {
-                        showToast("Falha na comunição com o servidor","<i class='bx bx-error' ></i>")
-                    })
+                        fetch('/painel?id='+event.codigo, 
+                        {
+                            method:'DELETE',
+                            headers: {
+                                'X-CSRFToken': csrfToken,
+                                'Content-Type': 'application/json',
+                            }
+                        })
+                        .then(response => {
+                            if(response.status == 200){                            
+                                location.reload()
+                            }
+                            else{
+                                showToast("Não foi possível deletar","<i class='bx bx-error' ></i>")
+                            }
+                        })
+                        .catch(error => {
+                            showToast("Falha na comunição com o servidor","<i class='bx bx-error' ></i>")
+                        })
+
+                    }
+                    });                
+
+                  
                 })
 
                 let startTop = (event.startHours - 7) * 5.88    
@@ -223,7 +246,7 @@
 
           }
 
-          showToast("Atualizado","<i class='bx bx-check-circle'></i>")
+          
     </script>
     
   
