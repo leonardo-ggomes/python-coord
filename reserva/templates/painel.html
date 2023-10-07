@@ -102,7 +102,7 @@
         let msg = '{{ msg|escapejs }}'
         
         if(msg){
-            showToast(msg,"<i class='bx bx-error' ></i>")
+            showToast(msg)
         }
         else{
             showToast("Atualizado","<i class='bx bx-check-circle'></i>")
@@ -162,14 +162,16 @@
                         })
                         .then(response => {
                             if(response.status == 200){                            
-                                location.reload()
+                                document.getElementById(event.codigo).remove()
+                                showToast("Excluído com sucesso!","<i class='bx bx-check-circle'></i>")
                             }
                             else{
-                                showToast("Não foi possível deletar","<i class='bx bx-error' ></i>")
+                                showToast("Não foi possível deletar!","<i class='bx bx-error' ></i>")
                             }
                         })
                         .catch(error => {
-                            showToast("Falha na comunição com o servidor","<i class='bx bx-error' ></i>")
+                            console.log(error)
+                            showToast("Falha na comunição com o servidor!","<i class='bx bx-error' ></i>")
                         })
 
                     }
