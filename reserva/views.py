@@ -66,3 +66,32 @@ def eventos(request):
     
     return render(request, "painel.html", context)
 
+
+
+
+def analise(request):
+    
+    data = []
+    
+    eventos =  eventos = Evento.objects.select_related('turma','docente','ambiente').all()
+    
+    for item in eventos:
+        data.append({
+            'codigo' : item.pk,  
+            'inicio' : str(item.inicio),
+            'fim' : str(item.fim),
+            'docente'  : item.docente.nome,
+            'turma'  : item.turma.nome,
+            'etiqueta'  : item.etiqueta,
+            'ambiente'  : item.ambiente.nome,
+            'diasemana' : item.diasemana,
+            'codAmbiente': item.ambiente.pk
+        })   
+       
+    
+    context = {
+     'eventos': json.dumps(data) 
+    }
+    
+    return render(request, "pivot.html", context)
+
