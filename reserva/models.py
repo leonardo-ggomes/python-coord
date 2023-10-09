@@ -35,9 +35,9 @@ class Evento(models.Model):
     )
     
     EIQUETA = (
-         ('#70a288b0','Verde'),
-         ('#dab785b0','Amarelo'),
-         ('#d5896fb0','Vermelho'),
+         ('#70a288','Verde'),
+         ('#dab785','Amarelo'),
+         ('#d5896f','Vermelho'),
     )
     
     inicio = models.TimeField()

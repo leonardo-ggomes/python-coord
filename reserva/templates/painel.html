@@ -137,7 +137,8 @@
                 const newEvent = document.createElement("div")
                 newEvent.classList.add("cal-event")
                 newEvent.id = event.codigo
-                newEvent.style.backgroundColor = event.etiqueta
+                newEvent.style.backgroundColor = event.etiqueta +"b4"
+                newEvent.style.borderLeft = `4px solid ${event.etiqueta}`
 
                 newEvent.addEventListener("dblclick", () => {   
 
