@@ -25,5 +25,4 @@ class EventoForm(forms.ModelForm):
         self.fields['fim'].widget = forms.TimeInput(attrs={'type':'time','class':'cal-sel-timeEnd', 'id':'cal-timeEnd'})
         self.fields['fim'].input_formats= ['%H:%M']
         self.fields['diasemana'].label ="Dia da Semana"
-
     

@@ -78,16 +78,17 @@ def analise(request):
     eventos =  eventos = Evento.objects.select_related('turma','docente','ambiente').all()
     
     for item in eventos:
+        
         data.append({
-            'codigo' : item.pk,  
-            'inicio' : str(item.inicio),
-            'fim' : str(item.fim),
-            'docente'  : item.docente.nome,
-            'turma'  : item.turma.nome,
-            'etiqueta'  : item.etiqueta,
-            'ambiente'  : item.ambiente.nome,
-            'diasemana' : item.diasemana,
-            'codAmbiente': item.ambiente.pk
+            'Codigo' : item.pk,  
+            'Inicio' : str(item.inicio),
+            'Termino' : str(item.fim),
+            'Docente'  : item.docente.nome,
+            'Turma'  : item.turma.nome,
+            'Ambiente'  : item.ambiente.nome,
+            'Dia_Semana' : item.diasemana,
+            'Aulas': item.aulas(),
+            'Duracao': item.duracao()
         })   
        
     
