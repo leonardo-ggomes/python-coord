@@ -1,22 +1,22 @@
 @font-face {
-    font-family: "lato-regular";
-    src: url("../fonts/Lato/Lato-Regular.ttf");
+    font-family: "roboto-regular";
+    src: url("../fonts/Roboto/Roboto-Regular.ttf");
 }
 
 @font-face {
-    font-family: "lato-light";
-    src: url("../fonts/Lato/Lato-Light.ttf");
+    font-family: "roboto-light";
+    src: url("../fonts/Roboto/Roboto-Light.ttf");
 }
 
 @font-face {
-    font-family: "lato-thin";
-    src: url("../fonts/Lato/Lato-Thin.ttf");
+    font-family: "roboto-thin";
+    src: url("../fonts/Roboto/Roboto-Thin.ttf");
 }
 
 :root{
-    --font-regular: "lato-regular";
-    --font-light: "lato-light";
-    --font-thin: "lato-thin";
+    --font-regular: "roboto-regular";
+    --font-light: "roboto-light";
+    --font-thin: "roboto-thin";
     --font-size: 16px;
 }
 
@@ -79,7 +79,7 @@ body{
 }
 
 .cal-info{
-    font-family: "lato-light";
+    font-family: "roboto-light";
     color: #040404;
     font-size: 16px;
     padding: 10px 0;
@@ -181,16 +181,16 @@ input[type="time"]{
 }
 
 .cal-btn{
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    height: 31px;
+    background-color: #417690;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    margin: 0;
     cursor: pointer;
-    color: #417690;
-    background-color: #ffffff;
-    border: 1px solid #417690;
-    padding: 10px;
-    border-radius: 4px;
 }
 
 
@@ -233,7 +233,7 @@ input[type="time"]{
     flex-grow: 1;
     margin: 1px;
     color: #888484;
-    background-color: transparent;
+    background-color: #ffffff;
     cursor: pointer;
     width: 50px;
     font-weight: 900;
@@ -245,7 +245,20 @@ input[type="time"]{
 }
 
 #cal-hours div:hover{
-    color: black;
+    color: white;
+    background-color: #417690;
+}
+
+.cal-radio-diasemana{
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.cal-radio-diasemana label{
+    flex-direction: column;
+    display: flex;
 }
 
 .dropdown {
@@ -268,7 +281,7 @@ z-index: 1;
 }
 
 .cal-textHour{
-    font-size: 10px;
+    font-size: 11px;
 }
 
 /* Tooltip */
@@ -283,6 +296,11 @@ z-index: 1;
     display: inline-block;
     cursor: pointer;
   }
+
+.tooltip:hover{
+    background-color: white;
+    color:#000;
+}
   
   /* Tooltip text */
   .tooltip .tooltiptext {

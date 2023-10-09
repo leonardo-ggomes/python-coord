@@ -1,22 +1,22 @@
 @font-face {
-    font-family: "lato-regular";
-    src: url("../fonts/Lato/Lato-Regular.ttf");
+    font-family: "roboto-regular";
+    src: url("../fonts/Roboto/Roboto-Regular.ttf");
 }
 
 @font-face {
-    font-family: "lato-light";
-    src: url("../fonts/Lato/Lato-Light.ttf");
+    font-family: "roboto-light";
+    src: url("../fonts/Roboto/Roboto-Light.ttf");
 }
 
 @font-face {
-    font-family: "lato-thin";
-    src: url("../fonts/Lato/Lato-Thin.ttf");
+    font-family: "roboto-thin";
+    src: url("../fonts/Roboto/Roboto-Thin.ttf");
 }
 
 :root{
-    --font-regular: "lato-regular";
-    --font-light: "lato-light";
-    --font-thin: "lato-thin";
+    --font-regular: "roboto-regular";
+    --font-light: "roboto-light";
+    --font-thin: "roboto-thin";
     --font-size: 16px;
 }
 
@@ -79,7 +79,7 @@ body{
 }
 
 .cal-info{
-    font-family: "lato-light";
+    font-family: "roboto-light";
     color: #040404;
     font-size: 16px;
     padding: 10px 0;
@@ -268,22 +268,26 @@ z-index: 1;
 }
 
 .cal-textHour{
-    font-size: 12px;
+    font-size: 11px;
 }
 
 /* Tooltip */
 
 .tooltip {
+    color: white;
+    padding: 2px;
+    font-size: 10px;
+    border-radius: 3px;
+    border: 1px solid #ffffff;
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
     cursor: pointer;
   }
   
   /* Tooltip text */
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 150px;
+    width: 130px;
     background-color: black;
     color: #fff;
     text-align: center;
