@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'Coord.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dbcoord',
-        'USER': 'root',
-        'PASSWORD':'root',
-        'HOST':'localhost',
-        'PORT': '3306'
+        'NAME': 'db-fwar906bxsb1',
+        'USER': 'db-fwar906bxsb1',
+        'PASSWORD':'njgvvsxHLunEBd4htUf7jREe',
+        'HOST':'up-pl-waw1-mysql-1.db.run-on-erla.com',
+        'PORT': '11550'
     }
 }
 
