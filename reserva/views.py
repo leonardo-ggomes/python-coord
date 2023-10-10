@@ -5,7 +5,7 @@ from .models import Evento
 from .forms import EventoForm
 import json
 
-#@login_required
+@login_required
 def eventos(request):    
  
     eventos = Evento.objects.select_related('turma','docente','ambiente').all()
@@ -70,7 +70,7 @@ def eventos(request):
 
 
 
-
+@login_required
 def analise(request):
     
     data = []
