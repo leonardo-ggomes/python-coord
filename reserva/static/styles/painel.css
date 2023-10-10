@@ -261,6 +261,10 @@ input[type="time"]{
     display: flex;
 }
 
+/* .cal-radio-diasemana label:focus-within{
+    color:#0075ff
+} */
+
 .dropdown {
     position: relative;
     display: inline-block;

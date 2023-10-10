@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Análise</title>
+
+    <!-- Biblioteca Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <style>
         
         /**Customizado*/
@@ -20,10 +24,16 @@
 </head>
 <body>
     <div id="wdr-component"></div>
+    <div id="googlechartContainer"></div>
+
+
     <link href={% static 'assets/webdatarocks-1.4.7/webdatarocks.min.css' %} rel="stylesheet" />
     <script src={% static 'assets/webdatarocks-1.4.7/webdatarocks.toolbar.min.js' %}></script>
     <script src={% static 'assets/webdatarocks-1.4.7/webdatarocks.js' %}></script>
+    <script src={% static 'assets/webdatarocks-1.4.7/webdatarocks.googlecharts.js' %}></script>
     <script>
+        var pivotTableReportComplete = false;
+        var googleChartsLoaded = false;
 
         let dataJSON = JSON.parse('{{ eventos|escapejs }}')
 
@@ -36,19 +46,58 @@
                     data: dataJSON
                 },
                 localization: "{% static 'assets/webdatarocks-1.4.7/pr.json' %}"
+            },
+            reportcomplete: function() {
+                pivot.off("reportcomplete");
+                pivotTableReportComplete = true;
+                createGoogleChart();
             }
+                   
         });
-
 
         function customizeToolbar(toolbar) {
             var tabs = toolbar.getTabs(); // get all tabs from the toolbar
             toolbar.getTabs = function() {
-                delete tabs[0]; // delete the first tab
-                delete tabs[1]
-                delete tabs[2]
+                //delete tabs[0]; // delete the first tab
+                //delete tabs[1]
+                //delete tabs[2]
                 return tabs;
             }
         }
+
+        google.charts.load('current', {'packages':['corechart']}); 
+
+        google.charts.setOnLoadCallback(onGoogleChartsLoaded);
+
+        function createGoogleChart() {
+            if (googleChartsLoaded) {
+                // specify the chart type
+                pivot.googlecharts.getData({ type: "ColumnChart" },
+                    drawChart,
+                    drawChart
+                );
+            }
+        }
+        function onGoogleChartsLoaded() {
+            googleChartsLoaded = true;
+            if (pivotTableReportComplete) {
+                createGoogleChart();
+            }
+        }
+
+        function drawChart(_data) {
+            var data = google.visualization.arrayToDataTable(_data.data);
+            var options = {
+                title: _data.options.title,
+                height: 300,
+                legend: {
+                    position: 'top'
+                }
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById('googlechartContainer'));
+            chart.draw(data, options);
+        }
+      
     </script>
 </body>
 </html>
