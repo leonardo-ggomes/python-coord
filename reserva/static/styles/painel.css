@@ -397,6 +397,18 @@ z-index: 1;
     from {bottom: 0; opacity: 0;} 
     to {bottom: 30px; opacity: 1;}
   }
+
+  #cal-filtroAmbiente{
+    border-radius: 4px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+  }
+
+  #cal-filtroAmbiente > div{
+    margin: 0 4px;
+  }
   
   @keyframes fadein {
     from {bottom: 0; opacity: 0;}

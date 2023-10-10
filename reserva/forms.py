@@ -1,8 +1,16 @@
 from django import forms
 from django.forms import widgets
-from .models import Evento
+from .models import Evento, Ambiente
 
 class EventoForm(forms.ModelForm):  
+    
+    filtroAmbiente = forms.ModelChoiceField(
+        queryset= Ambiente.objects.distinct(),
+        empty_label="Todas os Ambientes",
+        to_field_name="nome",
+        widget= forms.CheckboxSelectMultiple(attrs={'id':'cal-filtroAmbiente'}),
+        required=False
+    )
            
     class Meta:
         model = Evento

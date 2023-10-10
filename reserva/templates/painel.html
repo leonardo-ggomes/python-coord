@@ -14,7 +14,8 @@
 
 <body>
     <div class="cal-container">
-        <div class="cal-filter">              
+        <div class="cal-filter">      
+            {{form.filtroAmbiente}}        
         </div>   
         <div class="cal-header">
             <div> </div>
@@ -98,7 +99,7 @@
     <script src={%static 'js/modal.js'%}></script>
 
     <script>   
-      
+        let filtroAmbiente = []
         let data = JSON.parse('{{ eventos|escapejs }}')
         let msg = '{{ msg|escapejs }}'
         
@@ -108,118 +109,122 @@
         else{
             showToast("Atualizado","<i class='bx bx-check-circle'></i>")
         }
+
+        function load(){        
+            data.forEach((dt, index) => {
         
-        data.forEach((dt, index) => {
-    
-            let event = {
-                codigo : dt.codigo,
-                startHourUnformat: dt.inicio,
-                endHourUnformat: dt.fim,
-                startHourPad: String(dt.inicio).split(':')[0].padStart(2,"0"),
-                startMinutesPad: String(dt.inicio).split(':')[1].padStart(2,"0"),
-                endHourPad: String(dt.fim).split(':')[0].padStart(2,"0"),
-                endMinutesPad: String(dt.fim).split(':')[1].padStart(2,"0"),
-                startHours: Number(String(dt.inicio).split(':')[0]),
-                startMinutes: Number(String(dt.inicio).split(':')[1]),
-                endHours: Number(String(dt.fim).split(':')[0]),
-                endMinutes: Number(String(dt.fim).split(':')[1]),
-                docente: dt.docente,
-                turma: dt.turma,
-                etiqueta: dt.etiqueta,
-                ambiente: dt.ambiente,
-                diaSemana: dt.diasemana,
-                codAmbiente: dt.codAmbiente              
-            }
+                if(filtroAmbiente.includes(dt.ambiente) || filtroAmbiente.length == 0){
 
-            let colSemana = document.getElementById(`${event.diaSemana}`)
-            
-            if(colSemana){
-                let colAmbiente = document.getElementById(`cal-nc${event.diaSemana}-${event.codAmbiente}`)
-                const newEvent = document.createElement("div")
-                newEvent.classList.add("cal-event")
-                newEvent.id = event.codigo
-                newEvent.style.backgroundColor = event.etiqueta +"b4"
-                newEvent.style.borderLeft = `4px solid ${event.etiqueta}`
-
-                newEvent.addEventListener("dblclick", () => {   
-
-                    swal({
-                    title: "Tem certeza ?",
-                    text: `O evento no ambiente ${event.ambiente} das ${event.startHourUnformat} até ${event.endHourUnformat} será permanentemente excluido!`,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                    if (willDelete) {
-                        const csrfToken = getCSRFToken();
-
-                        fetch('/painel?id='+event.codigo, 
-                        {
-                            method:'DELETE',
-                            headers: {
-                                'X-CSRFToken': csrfToken,
-                                'Content-Type': 'application/json',
-                            }
-                        })
-                        .then(response => {
-                            if(response.status == 200){                            
-                                document.getElementById(event.codigo).remove()
-                                showToast("Excluído com sucesso!","<i class='bx bx-check-circle'></i>")
-                            }
-                            else{
-                                showToast("Não foi possível deletar!","<i class='bx bx-error' ></i>")
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            showToast("Falha na comunição com o servidor!","<i class='bx bx-error' ></i>")
-                        })
-
+                    let event = {
+                        codigo : dt.codigo,
+                        startHourUnformat: dt.inicio,
+                        endHourUnformat: dt.fim,
+                        startHourPad: String(dt.inicio).split(':')[0].padStart(2,"0"),
+                        startMinutesPad: String(dt.inicio).split(':')[1].padStart(2,"0"),
+                        endHourPad: String(dt.fim).split(':')[0].padStart(2,"0"),
+                        endMinutesPad: String(dt.fim).split(':')[1].padStart(2,"0"),
+                        startHours: Number(String(dt.inicio).split(':')[0]),
+                        startMinutes: Number(String(dt.inicio).split(':')[1]),
+                        endHours: Number(String(dt.fim).split(':')[0]),
+                        endMinutes: Number(String(dt.fim).split(':')[1]),
+                        docente: dt.docente,
+                        turma: dt.turma,
+                        etiqueta: dt.etiqueta,
+                        ambiente: dt.ambiente,
+                        diaSemana: dt.diasemana,
+                        codAmbiente: dt.codAmbiente              
                     }
-                    });                
 
-                  
-                })
+                    let colSemana = document.getElementById(`${event.diaSemana}`)
+                    
+                    if(colSemana){
+                        let colAmbiente = document.getElementById(`cal-nc${event.diaSemana}-${event.codAmbiente}`)
+                        const newEvent = document.createElement("div")
+                        newEvent.classList.add("cal-event")
+                        newEvent.id = event.codigo
+                        newEvent.style.backgroundColor = event.etiqueta +"b4"
+                        newEvent.style.borderLeft = `4px solid ${event.etiqueta}`
 
-                let startTop = (event.startHours - 7) * 5.88    
-                let startMinTop = event.startMinutes * 0.1
-                startTop += startMinTop
-                newEvent.style.top = startTop+"%" 
+                        newEvent.addEventListener("dblclick", () => {   
 
-                //Calcula a diferenca de horas
-                let horaspx = (event.endHours - event.startHours) * 5.88
+                            swal({
+                            title: "Tem certeza ?",
+                            text: `O evento no ambiente ${event.ambiente} das ${event.startHourUnformat} até ${event.endHourUnformat} será permanentemente excluido!`,
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                            })
+                            .then((willDelete) => {
+                            if (willDelete) {
+                                const csrfToken = getCSRFToken();
 
-                //encontra o percentual dos minutos
-                let minutospx = event.endMinutes * 0.1  
+                                fetch('/painel?id='+event.codigo, 
+                                {
+                                    method:'DELETE',
+                                    headers: {
+                                        'X-CSRFToken': csrfToken,
+                                        'Content-Type': 'application/json',
+                                    }
+                                })
+                                .then(response => {
+                                    if(response.status == 200){                            
+                                        document.getElementById(event.codigo).remove()
+                                        showToast("Excluído com sucesso!","<i class='bx bx-check-circle'></i>")
+                                    }
+                                    else{
+                                        showToast("Não foi possível deletar!","<i class='bx bx-error' ></i>")
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log(error)
+                                    showToast("Falha na comunição com o servidor!","<i class='bx bx-error' ></i>")
+                                })
 
-                let hmfinal = horaspx + minutospx
-                hmfinal -= startMinTop
+                            }
+                            });                
 
-                newEvent.style.height = "calc("+hmfinal+"%)"                   
+                        
+                        })
+
+                        let startTop = (event.startHours - 7) * 5.88    
+                        let startMinTop = event.startMinutes * 0.1
+                        startTop += startMinTop
+                        newEvent.style.top = startTop+"%" 
+
+                        //Calcula a diferenca de horas
+                        let horaspx = (event.endHours - event.startHours) * 5.88
+
+                        //encontra o percentual dos minutos
+                        let minutospx = event.endMinutes * 0.1  
+
+                        let hmfinal = horaspx + minutospx
+                        hmfinal -= startMinTop
+
+                        newEvent.style.height = "calc("+hmfinal+"%)"                   
 
 
-                newEvent.innerHTML = `
-                    <div class="cal-textHour"> ${event.startHourUnformat} - <strong>${event.endHourUnformat}</strong></div>
-                    <div class="tooltip"> <i class='bx bx-group'> </i>${event.ambiente}
-                        <span class="tooltiptext">${event.docente} - ${event.turma}</span>
-                    </div>    
-                `
+                        newEvent.innerHTML = `
+                            <div class="cal-textHour"> ${event.startHourUnformat} - <strong>${event.endHourUnformat}</strong></div>
+                            <div class="tooltip"> <i class='bx bx-group'> </i>${event.ambiente}
+                                <span class="tooltiptext">${event.docente} - ${event.turma}</span>
+                            </div>    
+                        `
 
-                if(colAmbiente) {         
-                    colAmbiente.appendChild(newEvent)
+                        if(colAmbiente) {         
+                            colAmbiente.appendChild(newEvent)
+                        }
+                        else{
+                            const newColAmbiente = document.createElement("div") 
+                            newColAmbiente.id = `cal-nc${event.diaSemana}-${event.codAmbiente}`
+                            newColAmbiente.classList.add("cal-colHour")
+
+                            newColAmbiente.appendChild(newEvent)
+                            colSemana.appendChild(newColAmbiente)   
+                        }
+                    }
                 }
-                else{
-                    const newColAmbiente = document.createElement("div") 
-                    newColAmbiente.id = `cal-nc${event.diaSemana}-${event.codAmbiente}`
-                    newColAmbiente.classList.add("cal-colHour")
-
-                    newColAmbiente.appendChild(newEvent)
-                    colSemana.appendChild(newColAmbiente)   
-                }
-            }
-
-        }); 
+            }); 
+        }
 
 
 
@@ -249,6 +254,31 @@
             }, 3000);
 
           }
+
+        function removerTodosAmbientes(){
+            document.querySelectorAll(".cal-colDay > div").forEach(node => {
+                node.remove() 
+            })
+        }
+
+        document.querySelector("#cal-filtroAmbiente").addEventListener('change',(e) => {
+
+            let exists = filtroAmbiente.indexOf(e.target.value)
+            if(exists >= 0){
+                delete filtroAmbiente[exists]
+            }
+            else{
+                filtroAmbiente.push(e.target.value)
+            }
+
+            removerTodosAmbientes()
+            load()
+
+           
+        })
+
+
+        load()
 
           
     </script>
