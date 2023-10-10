@@ -45,14 +45,34 @@
                 dataSource: {
                     data: dataJSON
                 },
+                slice: {
+                    "rows": [
+                        {
+                            "uniqueName": "Turma"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "uniqueName": "Measures"
+                        },
+                        {
+                            "uniqueName": "Dia_Semana"
+                        }
+                    ],
+                    "measures": [
+                        {
+                            "uniqueName": "Aulas",
+                            "aggregation": "sum"
+                        }
+                    ]
+                },
                 localization: "{% static 'assets/webdatarocks-1.4.7/pr.json' %}"
             },
             reportcomplete: function() {
                 pivot.off("reportcomplete");
                 pivotTableReportComplete = true;
                 createGoogleChart();
-            }
-                   
+            }                   
         });
 
         function customizeToolbar(toolbar) {

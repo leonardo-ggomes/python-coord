@@ -80,7 +80,6 @@ def analise(request):
     for item in eventos:
         
         data.append({
-            'Codigo' : item.pk,  
             'Inicio' : str(item.inicio),
             'Termino' : str(item.fim),
             'Docente'  : item.docente.nome,
