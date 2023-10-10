@@ -47,7 +47,7 @@ body{
 
 .cal-filter{
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
 }
@@ -404,10 +404,28 @@ z-index: 1;
     display: flex;
     align-items: center;
     padding: 4px;
+    font-size: 12px;
+  }
+
+  .bg-custom-info{
+    background-color: #f8bb86!important;
   }
 
   #cal-filtroAmbiente > div{
     margin: 0 4px;
+  }
+
+  .cal-nav-link a{
+    background-color: #417690;
+    color: #fff;
+    border: none;
+    box-shadow: none;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
   }
   
   @keyframes fadein {

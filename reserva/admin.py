@@ -4,6 +4,7 @@ from .models import Docente, Turma, Ambiente
 
 admin.site.site_header = "Coordenação"
 admin.site.site_title = "Coordenação"
+admin.site.site_url = "/painel"
 
 # Register your models here.
 

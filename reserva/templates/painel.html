@@ -15,7 +15,12 @@
 <body>
     <div class="cal-container">
         <div class="cal-filter">      
-            {{form.filtroAmbiente}}        
+            {{form.filtroAmbiente}}      
+            
+            <nav class="cal-nav-link">
+                <a href="{% url 'admin:index' %}"><i class='bx bx-cog'></i> Admin</a>  
+                <a href="{% url 'analise' %}" class="bg-custom-info"><i class='bx bx-data'></i> Análise</a>             
+            </nav>
         </div>   
         <div class="cal-header">
             <div> </div>
